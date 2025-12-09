@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatTodo</title>
+  <link rel="stylesheet" href="/style/common.css" />
+</head>
+<body>
+  
+  <div id="login-screen" class="screen active">
+    <div class="login-container">
+      <h1>ログイン画面</h1>
+      <!-- メール/パスワードログイン -->
+      <h3>メールアドレス</h3>
+      <div class="mail-form">
+        <input type="email" id="email" placeholder="メールアドレス" />
+        <input type="password" id="password" placeholder="パスワード" />
+      </div>
+      <div class="mail-btn">
+        <button id="signup-btn">新規登録</button>
+        <button id="email-login-btn">ログイン</button>
+      </div>
+
+      <!-- グーグルアカウントでログイン -->
+      <button id="login-btn">Googleでログイン</button>
+
+    </div>
+  </div>
+
+  <!--チャット画面-->
+  <div id="chat-screen" class="screen">
+
+    <div id="chat-sideber-container">
+      <!--チャット画面のサイドバーの左側-->
+      <div id="chat-sideber">
+        <div id="sidebar-left">
+          <h4>ルーム新規作成</h4>
+          <div id="room-create-container">
+            <input type="text" id="room-name" placeholder="ルーム名を入力" />
+            <button id="create-room-btn">ルーム作成</button>
+            <p id="room-create-msg"></p>
+          </div>
+          <h3>ルーム一覧</h3>
+          <div id="room-list"></div>
+        </div>
+
+
+        <!--チャット画面のサイドバーの右側--->
+        <div id="sidebar-right">
+          <h3 id="current-room-title"># 未選択</h3>
+          <h4>チャンネル新規作成</h4>
+          <div id="channel-create-container">
+            <input type="text" id="channel-name" placeholder="チャンネル名を入力" />
+            <button id="create-channel-btn">チャンネル作成</button>
+            <p id="channel-create-msg"></p>
+          </div>
+          <h3>チャンネル一覧</h3>
+          <div id="channel-list"></div>
+        </div>
+      </div>
+
+
+      <!--サイドバーの下にあるユーザー招待-->
+      <div id="invite-container">
+        <h3>ユーザー招待</h3>
+        <input type="email" id="invite-email" placeholder="メールアドレスを入力" />
+        <button id="invite-btn">招待</button>
+        <p id="invite-msg"></p>
+      </div>
+    </div>
+
+    <!--メッセージ画面-->
+    <div id="message-container">
+      <!--メッセージ表示（上部）-->
+      <div id="message-list-container">
+        <ul id="message-list"></ul>
+      </div>
+      <!--メッセージ送信（下部）-->
+      <div id="message-input-container">
+        <input type="text" id="message-input" placeholder="メッセージを入力" />
+        <button id="send-message-btn">送信</button>
+      </div>
+    </div>
+
+
+    <!-- 右端の縦バー -->
+    <div id="side-bar" title="メニュー">
+      <div>📝</div>  <!-- Todo -->
+      <div>👥</div>  <!-- メンバー一覧など -->
+      <div>⚙️</div>  <!-- 設定など -->
+    </div>
+
+    <!-- スライドパネル -->
+    <div id="slide-panel">
+      <!-- Todoリスト -->
+      <section id="todo-panel" class="panel-content">
+        <h2>Todoリスト</h2>
+        <input id="todo-search" placeholder="検索キーワード">
+        <select id="todo-filter">
+        <option value="all">すべて</option>
+        <option value="completed">完了のみ</option>
+        <option value="incomplete">未完了のみ</option>
+        </select>
+
+        <select id="todo-sort">
+        <option value="dueDateAsc">期限 昇順</option>
+        <option value="dueDateDesc">期限 降順</option>
+        <option value="taskNameAsc">タスク名 昇順</option>
+        <option value="taskNameDesc">タスク名 降順</option>
+        </select>
+
+        <ul id="todo-list"></ul>
+      </section>
+
+      <!-- メンバー一覧 -->
+      <section id="members-panel" class="panel-content">
+        <h2>メンバー一覧</h2>
+        <div id="members-list"></div>
+      </section>
+
+      <!-- 設定 -->
+      <section id="settings-panel" class="panel-content">
+        <h2>設定</h2>
+        <p>設定項目をここに表示</p>
+        <button id="logout-btn">テスト用のログアウト</button>
+      </section>
+
+    </div>
+
+  </div>
+
+ <!-- 共通 -->
+<script type="module" src="src/common/firebase-config.js"></script>
+<script type="module" src="src/common/screenSwitch.js"></script>
+<script type="module" src="src/common/sideBar.js"></script>
+
+<!-- 認証 -->
+<script type="module" src="src/auth/login.js"></script>
+
+<!-- ルーム関連 -->
+<script type="module" src="src/rooms/roomCreate.js"></script>
+<script type="module" src="src/rooms/loadRooms.js"></script>
+<script type="module" src="src/rooms/roomSelect.js"></script>
+<script type="module" src="src/rooms/roomAddMember.js"></script>
+<script type="module" src="src/rooms/membersAdd.js"></script>
+
+<!-- チャンネル関連 -->
+<script type="module" src="src/channels/channelCreate.js"></script>
+<script type="module" src="src/channels/loadChannels.js"></script>
+<script type="module" src="src/channels/channelSelect.js"></script>
+
+<!-- メッセージ関連 -->
+<script type="module" src="src/messages/sendMessage.js"></script>
+<script type="module" src="src/messages/messageDisplay.js"></script>
+
+<!-- Todo関連 -->
+<script type="module" src="src/todo/todoService.js"></script>
+<script type="module" src="src/todo/todoDisplay.js"></script>
+<script type="module" src="src/todo/commandParser.js"></script>
+
+<!-- ユーザー関連 -->
+<script type="module" src="src/user/userStore.js"></script>
+<script type="module" src="src/user/membersDisplay.js"></script>
+
+</body>
+</html>
