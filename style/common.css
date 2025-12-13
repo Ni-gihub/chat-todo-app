@@ -1,10 +1,14 @@
 /*－－－－－－－－－－全体のCSS－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
 /*表示したい画面の初期設定*/
 .screen {
-    display: none;
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
 }
 .screen.active {
-  display: block;
+  display: flex;
 }
 
 /**/
@@ -18,6 +22,7 @@ body {
   margin: 0;
   background-color: #f5f5f5;
   user-select: none;
+  overflow: hidden;
 }
 
 
@@ -25,19 +30,15 @@ body {
 /*－－－－－－－－－－ログイン画面のCSS－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
 /*ログイン画面のレイアウト*/
 #login-screen{
-  justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: white;
+  justify-content: center;
+  background: #F5F5F5;
 }
+
 
 /*ログインコンテナ*/
 .login-container {
-  background: white;
+  background: #FFFFFF;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -45,6 +46,10 @@ body {
   width: 90%;           
   max-width: 400px;     
   margin: auto;        
+}
+
+.LoginsubTitle{
+  color: #888;
 }
 
 /*ログインフォーム*/
@@ -63,7 +68,7 @@ body {
   border-radius: 4px;
 }
 
-/*ログイン＆新規登録*/
+/*ログイン＆新規登録配置*/
 .mail-btn {
   display: flex; 
   gap: 2rem;
@@ -71,15 +76,64 @@ body {
   margin-bottom: 2rem;
 }
 
+/*新規登録ボタンのレイアウト*/
+#signup-btn{
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/*ログインボタンのレイアウト*/
+#email-login-btn{
+  background-color: #fff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/*Googleアカウントと分ける用の「または」*/
+.divider{
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/*「またわ」の左右の棒線*/
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #ccc
+}
+
+/*「またわ」の左右の棒線の表示の設定*/
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
 /*グーグルログインボタン*/
 #login-btn {
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #4285f4;
-  color: white;
-  border: none;
+  background-color: #FFFFFF;
+  color: #3c4043;
+  border: 1px solid #dadce0;
   border-radius: 6px;
   cursor: pointer;
+}
+
+#login-btn img{
+  position: relative;
+  top: 2px;
 }
 
 
@@ -87,17 +141,20 @@ body {
 /*－－－－－－－－－－チャット画面のCSS－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
 /*チャット画面レイアウト*/
 #chat-screen{
-  height: 100vh;
-  width: 100vw;
-  display: flex; 
+  flex: 1;
   flex-direction: row;
   background-color: #E5E7EB;
 }
 
+#chat-screen.active {
+  display: flex;
+}
+
 /*チャット画面の左側(サイドバーとユーザー招待)*/
 #chat-sideber-container{
-  height: 100vh;
+  height: 100%;
   width: 30vw;
+  background-color: #ffffff;
 }
 
 /*サイドバー全体のCSS*/
@@ -110,7 +167,7 @@ body {
 /*サイドバーの左側（ルーム側）*/
 #sidebar-left{
   width: 50%;
-  border-right: 3px solid #ccc;
+  border-right: 1px solid #FF8A00;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -138,7 +195,7 @@ body {
 /*サイドバーの右側（チャンネル側）*/
 #sidebar-right{
   width: 50%;
-  border-right: 3px solid #ccc;
+  border-right: 1px solid #FF8A00;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -162,8 +219,6 @@ body {
   background-color: #d0ebff; 
   font-weight: bold;
 }
-
-
 
 /*チャット画面右側ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー*/
 /* メッセージコンテナ（縦並び） */
@@ -264,9 +319,14 @@ body {
   font-size: 14px;
   border: none;
   border-radius: 4px;
-  background-color: #5c7cfa;
-  color: white;
   cursor: pointer;
+
+  background: linear-gradient(
+    to right,
+    #FFF6EB,
+    #FFC37B
+  );
+  color: #333;
   
 }
 #send-message-btn:hover {
@@ -283,7 +343,6 @@ body {
   right: 0;
   width: 40px;
   height: 100vh;
-  background-color: #5c7cfa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -292,6 +351,12 @@ body {
   color: white;
   user-select: none;
   z-index: 1000;
+
+  background: linear-gradient(
+    to bottom,
+    #FF8A00,
+    #FF6A00
+  );
 }
 
 /* アイコンの間隔 */
@@ -419,6 +484,6 @@ body {
 #invite-container{
   padding-left: 40px;
   padding-top: 10px;
-  background-color: #E5E7EB;
+  background-color: #ffffff;
   border-radius: 8px;
 }

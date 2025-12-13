@@ -7,11 +7,11 @@
 </head>
 <body>
   
-  <div id="login-screen" class="screen active">
+  <div id="login-screen" class="screen">
     <div class="login-container">
-      <h1>ログイン画面</h1>
+      <h1 class="LoginTitle">Chat & Todo </h1>
       <!-- メール/パスワードログイン -->
-      <h3>メールアドレス</h3>
+      <p class="LoginsubTitle">アカウントにログインしてください</p>
       <div class="mail-form">
         <input type="email" id="email" placeholder="メールアドレス" />
         <input type="password" id="password" placeholder="パスワード" />
@@ -21,8 +21,13 @@
         <button id="email-login-btn">ログイン</button>
       </div>
 
+      <div class="divider">または</div>
+
       <!-- グーグルアカウントでログイン -->
-      <button id="login-btn">Googleでログイン</button>
+      <button id="login-btn">
+        <img src="./assets/google-color.svg" alt="Google" class="google-icon">
+        Googleでログイン
+      </button>
 
     </div>
   </div>
@@ -135,6 +140,7 @@
 <script type="module" src="src/common/sideBar.js"></script>
 
 <!-- 認証 -->
+<script type="module" src="src/auth/authWatcher.js"></script>
 <script type="module" src="src/auth/login.js"></script>
 
 <!-- ルーム関連 -->

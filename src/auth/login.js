@@ -7,12 +7,8 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-import { switchScreen, screens } from "../common/screenSwitch.js";  // screenSwitch.js
-import { loadUserRooms } from "../rooms/loadRooms.js";              // loadRooms.js
 import { saveUserInfo } from "../user/userStore.js";                // userStore.js
 
 
@@ -25,22 +21,6 @@ const loginBtn = document.getElementById("login-btn");
 const emailLoginBtn = document.getElementById("email-login-btn");
 //新規登録ボタン
 const signupBtn = document.getElementById("signup-btn");
-
-
-
-//ページを読み込んだ時
-window.addEventListener("load", () => {
-  // ページ読み込み時にログイン状態を監視
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // ログイン済みならチャット画面へ
-      console.log("ユーザーはログイン中です:", user.email);
-
-      switchScreen(screens.chat);
-      loadUserRooms();
-    }
-  });
-});
 
 
 
@@ -63,10 +43,6 @@ loginBtn.addEventListener("click", () => {
       //ログ表示
       console.log("ログイン成功:", user.displayName);
 
-
-      // ログイン成功したらチャット画面へ切り替え
-      switchScreen(screens.chat);
-      loadUserRooms();
     })
     .catch((error) => {
 
@@ -92,8 +68,6 @@ emailLoginBtn.addEventListener("click", () => {
     .then((userCredential) => {
       console.log("メールログイン成功:", userCredential.user.email);
       saveUserInfo(userCredential.user);
-      switchScreen(screens.chat);
-      loadUserRooms();
     })
     .catch((error) => {
       console.error("メールログイン失敗:", error);
@@ -115,7 +89,6 @@ signupBtn.addEventListener("click", () => {
     .then((userCredential) => {
       console.log("新規登録成功:", userCredential.user.email);
       saveUserInfo(userCredential.user);
-      switchScreen(screens.chat);
     })
     .catch((error) => {
       console.error("新規登録失敗:", error);
@@ -132,7 +105,6 @@ logoutBtn.addEventListener("click", () => {
   signOut(auth)
     .then(() => {
       console.log("ログアウト成功");
-      switchScreen(screens.login);
     })
     .catch((error) => {
       console.error("ログアウト失敗:", error);
