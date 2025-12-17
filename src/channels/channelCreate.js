@@ -1,29 +1,30 @@
-// channelCreate.js
+// 現在選択中のルームにチャンネルを作成する
 console.log("channelCreate.js 読み込み成功");
 
-// 共通の Firebase 設定を import
+// 共通の Firebase 設定
 import { db, auth } from "../common/firebase-config.js";  
-
 // Firestore モジュール
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// ルーム関連モジュール
+// 選択中のルームIDを取得
 import { getCurrentRoomId } from "../rooms/roomSelect.js";
+//チャンネル一覧を読み込む
 import { loadChannels } from "./loadChannels.js";
 
 //HTML要素を取得
 //チャンネル作成ボタン
 const createChannelBtn = document.getElementById("create-channel-btn");
-//メッセージ
+//作成成功/失敗のメッセージ
 const channelCreateMsg = document.getElementById("channel-create-msg");
 
-//チャンネルの作成ボタンのクリックイベント
+
+
+//チャンネルの作成ボタンをクリック
 createChannelBtn.addEventListener("click", async () => {
 
-  //入力欄
+  //入力されたチャンネル名を入れる
   const channelNameInput = document.getElementById("channel-name");
 
-  //入力されたチャンネル名を入れる
+  //入力されたチャンネル名の空白除去
   const channelName = channelNameInput.value.trim();
 
   //現在選択されているルームIDを取得
@@ -33,27 +34,30 @@ createChannelBtn.addEventListener("click", async () => {
   const user = auth.currentUser;
 
   //エラー処理
-  //チャンネル名が入っているか
+  //チャンネル名を入力しているか
   if (!channelName) {
     channelCreateMsg.textContent = "チャンネル名を入力してください。";
     return;
   }
 
-  //ルームIDがあるか
+  //ルームを選択しているか
   if (!roomId) {
     channelCreateMsg.textContent = "ルームを選択してください。";
     return;
   }
 
-  //アカウントがあるか
+  //ログインされているか
   if (!user) {
     channelCreateMsg.textContent = "ログイン状態が不明です。";
     return;
   }
   
+
+
   try {
 
-    //rooms/roomId/channelsに出来る
+    //rooms/roomId/channelsにドキュメントを作成
+    //Firestore に新しいチャンネルが書き込まれる
     await addDoc(collection(db, "rooms", roomId, "channels"), {
       //チャンネル名
       name: channelName,
@@ -68,8 +72,10 @@ createChannelBtn.addEventListener("click", async () => {
 
     //入力欄を空欄にする
     channelNameInput.value = "";
-    //チャンネルを読み込む
+
+    //チャンネル一覧を更新
     loadChannels();
+
   } catch (error) {
     console.error("チャンネル作成エラー:", error);
     channelCreateMsg.textContent = "チャンネルの作成に失敗しました。";

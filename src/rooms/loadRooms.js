@@ -1,9 +1,8 @@
-// loadRooms.js
+// 
 console.log("loadRooms.js 読み込み成功");
 
 // Firebase 共通設定
 import { db, auth } from "../common/firebase-config.js";
-
 // Firestore モジュール
 import {
   collection,
@@ -12,11 +11,11 @@ import {
   getDocs,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// ルーム関連モジュール
+// ルーム選択
 import { selectRoom } from "./roomSelect.js";
 
-// HTMLのリスト要素
+
+// ルーム一覧
 const roomListElement = document.getElementById("room-list");
 
 //ログインしているユーザーが所属するルーム一覧を読み込む処理（非同期）
@@ -25,6 +24,8 @@ export async function loadUserRooms() {
   //現在ログイン中のユーザーを入れる
   const user = auth.currentUser;
 
+  //エラー処理
+  //ログインしていない場合は終了
   if (!user) {
     console.log("未ログインのためルームは取得しません");
     return;
@@ -45,15 +46,23 @@ export async function loadUserRooms() {
       // 古いデータを削除
       roomListElement.innerHTML = "";
 
+      //ルーム事にループする
       querySnapshot.forEach((doc) => {
+        //ルームのデータを入れる
         const room = doc.data();
+        //liを作成
         const li = document.createElement("li");
+        //room.name を表示
         li.textContent = room.name;
+        //dataset.roomId にドキュメント ID を保存
         li.dataset.roomId = doc.id;
+        //css用に"room-item"を付与
         li.classList.add("room-item");
+        //クリックで selectRoomを呼ぶ
         li.addEventListener("click", () => {
           selectRoom(doc.id, room.name);
         });
+        //liをルーム一覧に追加する
         roomListElement.appendChild(li);
       });
 

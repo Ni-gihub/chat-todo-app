@@ -1,21 +1,20 @@
-// loadChannels.js
+//チャンネル一覧を Firestore から取得
+//取得したチャンネルを HTMLのリスト（ul/li）に表示
+//チャンネルをクリックすると selectChannel 関数で選択状態にする
 console.log("loadChannels.js 読み込み成功");
 
-// ルーム選択・チャンネル関連モジュール
+// チャンネル選択関数
 import { selectChannel } from "./channelSelect.js";
-
 // Firebase 共通設定
 import { db } from "../common/firebase-config.js";
-
 // Firestore モジュール
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// ルーム関連モジュール
+// 現在選択中のルームID
 import { getCurrentRoomId } from "../rooms/roomSelect.js";
 
 
 
-//チャンネルを表示する場所を入れる
+//チャンネル一覧を表示する要素の変数
 const channelListElement = document.getElementById("channel-list");
 
 //チャンネルをfirestoreから読み取って表示する関数（非同期）
@@ -25,7 +24,7 @@ export async function loadChannels() {
   const roomId = getCurrentRoomId();
   
   //エラー処理
-  //ルームIDがあるかどうか
+  //ルームを選択しているか
   if (!roomId) {
     console.warn("チャンネルを読み込むにはルームを選択してください。");
     return;
@@ -33,7 +32,7 @@ export async function loadChannels() {
 
   try {
 
-    //rooms/roomId/channelsから情報を探す定義する
+    //rooms/roomId/channelsから情報を探す物を定義
     const channelsRef = collection(db, "rooms", roomId, "channels");
 
     //定義したのを持ってくる

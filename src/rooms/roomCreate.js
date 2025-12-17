@@ -1,32 +1,33 @@
+// 
+console.log(" roomCreate.js読み込み成功");
+
 // Firebase 共通設定
 import { db, auth } from "../common/firebase-config.js";
-
 // Firestore モジュール
 import {
   collection,
   addDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// ルーム関連モジュール
+// ルーム一覧を表示
 import { loadUserRooms } from "./loadRooms.js";
 
 
-// ルーム作成ボタンを取得
+// ルーム作成ボタン
 const createRoomBtn = document.getElementById("create-room-btn");
-
 // 作成メッセージ表示欄
 const roomCreateMsg = document.getElementById("room-create-msg");
 
-//ルームボタンのクリックイベント
+
+//ルーム作成ボタンのクリックイベント
 createRoomBtn.addEventListener("click", async () => {
 
-  //ユーザー名を入れる
+  //ログイン中のユーザー名を入れる
   const user = auth.currentUser;
 
-  //ルーム名を入れれるようにする（HTML要素を取得）
+  //ルーム名を入れれるようにする
   const roomNameInput = document.getElementById("room-name");
-  //ルーム名を入れる
+  //ルーム名を入れる（前後の空白を削除）
   const roomName = roomNameInput.value.trim();
 
   // 入力チェック（ユーザー名は存在するか、ルーム名は空白じゃないか）
@@ -44,7 +45,7 @@ createRoomBtn.addEventListener("click", async () => {
     const docRef = await addDoc(collection(db, "rooms"), {
       //ルーム名
       name: roomName,
-      //作成したユーザー名
+      //作成したユーザーID
       createdBy: user.uid,
       //作成した日時
       createdAt: serverTimestamp(),
@@ -56,8 +57,9 @@ createRoomBtn.addEventListener("click", async () => {
     roomCreateMsg.textContent = `ルーム「${roomName}」を作成しました。`;
     //入力欄を空欄にする
     roomNameInput.value = "";
-    //ルームを表示
+    //ルーム一覧の最新を表示
     loadUserRooms();
+
   } catch (error) {
     console.error("ルーム作成エラー:", error);
     roomCreateMsg.textContent = "ルーム作成に失敗しました。";

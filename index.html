@@ -7,24 +7,33 @@
 </head>
 <body>
   
+  <!-- ログイン画面 -->
   <div id="login-screen" class="screen">
+
+    <!-- ログインカード -->
     <div class="login-container">
       <h1 class="LoginTitle">Chat & Todo </h1>
       <!-- メール/パスワードログイン -->
       <p class="LoginsubTitle">アカウントにログインしてください</p>
+
+      <!-- メール/パスワード入力欄 -->
       <div class="mail-form">
         <input type="email" id="email" placeholder="メールアドレス" />
         <input type="password" id="password" placeholder="パスワード" />
       </div>
+
+      <!-- 新規登録/ログインボタン -->
       <div class="mail-btn">
         <button id="signup-btn">新規登録</button>
         <button id="email-login-btn">ログイン</button>
       </div>
 
+      <!-- 新規登録/ログインボタンとGoogleアカウントの間の線と文言 -->
       <div class="divider">または</div>
 
       <!-- グーグルアカウントでログイン -->
       <button id="login-btn">
+        <!-- assetsフォルダのGoogleアイコン -->
         <img src="./assets/google-color.svg" alt="Google" class="google-icon">
         Googleでログイン
       </button>
@@ -35,37 +44,60 @@
   <!--チャット画面-->
   <div id="chat-screen" class="screen">
 
+    <!--チャット画面の左側のサイドバー-->
     <div id="chat-sideber-container">
-      <!--チャット画面のサイドバーの左側-->
+
+      <!--左側のサイドバーの上部にあるルームとチャンネル-->
       <div id="chat-sideber">
+
+         <!--サイドバーの左側--->
         <div id="sidebar-left">
+
           <h4>ルーム新規作成</h4>
+          <!--ルーム作成場所--->
           <div id="room-create-container">
+            <!--ルーム名入力欄--->
             <input type="text" id="room-name" placeholder="ルーム名を入力" />
+            <!--ルーム作成ボタン--->
             <button id="create-room-btn">ルーム作成</button>
+            <!--ルーム作成が出来たかのメッセージ表示場所--->
             <p id="room-create-msg"></p>
           </div>
+
+
           <h3>ルーム一覧</h3>
+          <!--ルーム表示場所--->
           <div id="room-list"></div>
+
         </div>
 
 
-        <!--チャット画面のサイドバーの右側--->
+        <!--サイドバーの右側--->
         <div id="sidebar-right">
+          
+          <!--選択しているルーム名表示--->
           <h3 id="current-room-title"># 未選択</h3>
+
           <h4>チャンネル新規作成</h4>
+          <!--チャンネル作成場所--->
           <div id="channel-create-container">
+            <!--チャンネル名入力欄--->
             <input type="text" id="channel-name" placeholder="チャンネル名を入力" />
+            <!--チャンネル作成ボタン--->
             <button id="create-channel-btn">チャンネル作成</button>
+            <!--チャンネル作成が出来たかのメッセージ表示場所--->
             <p id="channel-create-msg"></p>
           </div>
+
           <h3>チャンネル一覧</h3>
+          <!--チャンネル表示場所--->
           <div id="channel-list"></div>
+
         </div>
       </div>
 
 
-      <!--サイドバーの下にあるユーザー招待-->
+      <!--左サイドバーの下部にあるユーザー招待（仮置き）-->
       <div id="invite-container">
         <h3>ユーザー招待</h3>
         <input type="email" id="invite-email" placeholder="メールアドレスを入力" />
@@ -76,11 +108,11 @@
 
     <!--メッセージ画面-->
     <div id="message-container">
-      <!--メッセージ表示（上部）-->
+      <!--メッセージ表示場所（上部）-->
       <div id="message-list-container">
         <ul id="message-list"></ul>
       </div>
-      <!--メッセージ送信（下部）-->
+      <!--メッセージ送信場所（下部）-->
       <div id="message-input-container">
         <input type="text" id="message-input" placeholder="メッセージを入力" />
         <button id="send-message-btn">送信</button>
@@ -91,22 +123,27 @@
     <!-- 右端の縦バー -->
     <div id="side-bar" title="メニュー">
       <div>📝</div>  <!-- Todo -->
-      <div>👥</div>  <!-- メンバー一覧など -->
-      <div>⚙️</div>  <!-- 設定など -->
+      <div>👥</div>  <!-- メンバー一覧 -->
+      <div>⚙️</div>  <!-- 設定 -->
     </div>
 
-    <!-- スライドパネル -->
+    <!-- 右のスライドパネル -->
     <div id="slide-panel">
-      <!-- Todoリスト -->
+      <!-- Todoリストタブ -->
       <section id="todo-panel" class="panel-content">
         <h2>Todoリスト</h2>
+
+        <!-- Todoリスト検索欄 -->
         <input id="todo-search" placeholder="検索キーワード">
+
+        <!-- プルダウンメニュー -->
         <select id="todo-filter">
         <option value="all">すべて</option>
         <option value="completed">完了のみ</option>
         <option value="incomplete">未完了のみ</option>
         </select>
 
+        <!-- プルダウンメニュー -->
         <select id="todo-sort">
         <option value="dueDateAsc">期限 昇順</option>
         <option value="dueDateDesc">期限 降順</option>
@@ -114,19 +151,24 @@
         <option value="taskNameDesc">タスク名 降順</option>
         </select>
 
+        <!-- Todoリスト表示場所 -->
         <ul id="todo-list"></ul>
       </section>
 
-      <!-- メンバー一覧 -->
+      <!-- メンバーリストタブ -->
       <section id="members-panel" class="panel-content">
-        <h2>メンバー一覧</h2>
+        <h2>メンバーリスト</h2>
+        <!-- メンバーリスト表示場所 -->
         <div id="members-list"></div>
       </section>
 
-      <!-- 設定 -->
+      <!-- 設定タブ -->
       <section id="settings-panel" class="panel-content">
         <h2>設定</h2>
+        <!-- 設定項目表示場所（仮置き） -->
         <p>設定項目をここに表示</p>
+
+        <!-- テスト用のログアウト -->
         <button id="logout-btn">テスト用のログアウト</button>
       </section>
 
