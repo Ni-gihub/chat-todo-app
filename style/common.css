@@ -167,7 +167,7 @@ body {
 /*サイドバーの左側（ルーム側）*/
 #sidebar-left{
   width: 50%;
-  border-right: 1px solid #FF8A00;
+  border-right: 0.1rem solid #ccc;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -184,18 +184,25 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 4px 8px;      
+  border-radius: 6px;
+}
+
+
+.room-item:hover {
+  background-color: #f1f5f9;
 }
 
 /* 選択中のルームにハイライト */
 .room-item.selected {
-  background-color: #d0ebff; 
+  background-color: #dbeafe;
   font-weight: bold;
+  border-radius: 6px;
 }
 
 /*サイドバーの右側（チャンネル側）*/
 #sidebar-right{
   width: 50%;
-  border-right: 1px solid #FF8A00;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -212,12 +219,19 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 4px 8px;      
+  border-radius: 6px;
+}
+
+.channel-item:hover {
+  background-color: #f1f5f9;
 }
 
 /* 選択中のチャンネルにハイライト */
 .channel-item.selected {
-  background-color: #d0ebff; 
+  background-color: #dbeafe;
   font-weight: bold;
+  border-radius: 6px;
 }
 
 /*チャット画面右側ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー*/
@@ -295,6 +309,20 @@ body {
   border-bottom-right-radius: 0;
 }
 
+/* システム（中央） */
+.system-message {
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+
+  background-color: #f8fafc;
+  padding: 6px 0;
+  margin: 10px auto; 
+
+  border-radius: 6px;
+}
+
+
 /* 入力エリア */
 #message-input-container {
   display: flex;
@@ -320,12 +348,6 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
-  background: linear-gradient(
-    to right,
-    #FFF6EB,
-    #FFC37B
-  );
   color: #333;
   
 }

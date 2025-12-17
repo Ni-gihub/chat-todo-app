@@ -67,13 +67,20 @@ export function startMessageListener() {
       //Firestore のドキュメントの内容を取得
       const data = docSnapshot.data();
 
+      //
+      const isSystem = data.createdBy === "system";
+
       // メッセージ事にliを作成
       const li = document.createElement("li");
       //CSS用の"message" を付与
       li.classList.add("message");
 
-      // 自分のメッセージか他人かを分ける為にクラスを追加
-      if (data.createdBy === auth.currentUser?.uid) {
+
+      // システムか自分のメッセージか他人かを分ける為にクラスを追加
+      if (isSystem) {
+        //システムメッセージ
+        li.classList.add("system-message");
+      } else if (data.createdBy === auth.currentUser?.uid) {
         //自分のメッセージ
         li.classList.add("my-message");
       } else {
@@ -94,44 +101,50 @@ export function startMessageListener() {
       // ユーザー名の変数作成（初期値は匿名）
       let userName = "匿名";
 
-      // もしキャッシュにあればそこから取得
-      if (userNameCache[data.createdBy]) {
+      if (!isSystem) {
+        // もしキャッシュにあればそこから取得
+        if (userNameCache[data.createdBy]) {
 
-        //userNameCacheに保存していたらFirestoreへの問い合わせをスキップ
-        userName = userNameCache[data.createdBy];
+          //userNameCacheに保存していたらFirestoreへの問い合わせをスキップ
+          userName = userNameCache[data.createdBy];
 
       
-      //名前がキャッシュに存在しない場合
-      } else {
+        //名前がキャッシュに存在しない場合
+        } else {
 
-        // Firestoreのusersコレクションから取得
-        try {
+          // Firestoreのusersコレクションから取得
+          try {
 
-          //対象ユーザードキュメントを指定
-          const userDocRef = doc(db, "users", data.createdBy);
-          //指定した場所から取得
-          const userDocSnap = await getDoc(userDocRef);
+            //対象ユーザードキュメントを指定
+            const userDocRef = doc(db, "users", data.createdBy);
+            //指定した場所から取得
+            const userDocSnap = await getDoc(userDocRef);
 
-          //ドキュメントが存在すれば、name フィールドを取得。
-          //なければ匿名
-          if (userDocSnap.exists()) {
-            userName = userDocSnap.data().name || "匿名";
+            //ドキュメントが存在すれば、name フィールドを取得。
+            //なければ匿名
+            if (userDocSnap.exists()) {
+              userName = userDocSnap.data().name || "匿名";
+            }
+            // 今回取得した名前をキャッシュに保存。
+            userNameCache[data.createdBy] = userName;
+
+
+          } catch (error) {
+            console.error("ユーザー名取得エラー:", error);
           }
-          // 今回取得した名前をキャッシュに保存。
-          userNameCache[data.createdBy] = userName;
-
-
-        } catch (error) {
-          console.error("ユーザー名取得エラー:", error);
         }
       }
 
-      // 投稿者名と時間をまとめて表示する <div> を作成。
-      const infoDiv = document.createElement("div");
-      //CSS用のmessage-infoを付与する
-      infoDiv.classList.add("message-info");
-      //ユーザー名と時間を文字列としてそのまま表示
-      infoDiv.textContent = `${userName}・${time}`;
+      if(!isSystem) {
+        // 投稿者名と時間をまとめて表示する <div> を作成。
+        const infoDiv = document.createElement("div");
+        //CSS用のmessage-infoを付与する
+        infoDiv.classList.add("message-info");
+        //ユーザー名と時間を文字列としてそのまま表示
+        infoDiv.textContent = `${userName}・${time}`;
+        // liの中に投稿者情報を追加。
+        li.appendChild(infoDiv);
+      }
 
       // メッセージ本文のdivを作成
       const bubbleDiv = document.createElement("div");
@@ -140,8 +153,7 @@ export function startMessageListener() {
       //メッセージ本文を文字列としてそのまま表示
       bubbleDiv.textContent = data.text;
 
-      // liの中に投稿者情報と本文を追加。
-      li.appendChild(infoDiv);
+      // liの中に本文を追加。
       li.appendChild(bubbleDiv);
 
       // 作成したliをメッセージリストに追加
