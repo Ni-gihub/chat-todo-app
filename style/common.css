@@ -509,3 +509,36 @@ body {
   background-color: #ffffff;
   border-radius: 8px;
 }
+
+
+
+
+/* ===== 招待モーダル ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000; /* side-bar(1000) / slide-panel(999) より上 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 360px;
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}

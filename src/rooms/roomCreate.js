@@ -7,6 +7,8 @@ import { db, auth } from "../common/firebase-config.js";
 import {
   collection,
   addDoc,
+  doc,
+  setDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 // ルーム一覧を表示
@@ -49,8 +51,14 @@ createRoomBtn.addEventListener("click", async () => {
       createdBy: user.uid,
       //作成した日時
       createdAt: serverTimestamp(),
-      //製作者をメンバーに追加
-      members: [user.uid], 
+    });
+
+    //
+    const memberRef = doc(db, "rooms", docRef.id, "members", user.uid);
+    //
+    await setDoc(memberRef, {
+      role: "owner",
+      joinedAt: serverTimestamp(),
     });
 
     //ルーム作成成功のメッセージ

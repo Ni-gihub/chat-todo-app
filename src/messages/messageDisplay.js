@@ -67,7 +67,7 @@ export function startMessageListener() {
       //Firestore のドキュメントの内容を取得
       const data = docSnapshot.data();
 
-      //
+      //システムメッセージの判別用
       const isSystem = data.createdBy === "system";
 
       // メッセージ事にliを作成

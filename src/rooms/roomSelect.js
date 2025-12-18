@@ -4,7 +4,7 @@ console.log("roomSelect.js 読み込み成功");
 // チャンネル一覧を表示
 import { loadChannels } from "../channels/loadChannels.js"; 
 //
-import { showCurrentRoomMembers } from "../user/membersDisplay.js"; 
+import { subscribeRoomMembers } from "../user/membersDisplay.js"; 
 
 // 現在選択されているルームIDを保存する変数(初期値はnull)
 let currentRoomId = null;
@@ -46,7 +46,7 @@ export function selectRoom(roomId, roomName) {
   }
   
   //ルーム内のメンバーを表示
-  showCurrentRoomMembers();
+  subscribeRoomMembers();
 
   //チャンネル一覧を読み込む
   loadChannels();

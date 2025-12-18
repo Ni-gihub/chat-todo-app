@@ -95,15 +95,6 @@
 
         </div>
       </div>
-
-
-      <!--左サイドバーの下部にあるユーザー招待（仮置き）-->
-      <div id="invite-container">
-        <h3>ユーザー招待</h3>
-        <input type="email" id="invite-email" placeholder="メールアドレスを入力" />
-        <button id="invite-btn">招待</button>
-        <p id="invite-msg"></p>
-      </div>
     </div>
 
     <!--メッセージ画面-->
@@ -157,7 +148,10 @@
 
       <!-- メンバーリストタブ -->
       <section id="members-panel" class="panel-content">
-        <h2>メンバーリスト</h2>
+        <div class="member-header">
+          <span class="member-title">メンバー</span>
+          <button id="invite-btn" class="invite-btn">＋ 招待</button>
+        </div>
         <!-- メンバーリスト表示場所 -->
         <div id="members-list"></div>
       </section>
@@ -171,10 +165,30 @@
         <!-- テスト用のログアウト -->
         <button id="logout-btn">テスト用のログアウト</button>
       </section>
-
     </div>
-
   </div>
+
+  <!-- ユーザー招待のモーダル -->
+  <div id="invite-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+      <h3>メンバーを招待</h3>
+
+      <input
+        type="text"
+        id="invite-input"
+        placeholder="メールアドレス または ユーザーID"
+      />
+
+      <div class="modal-actions">
+        <button id="invite-cancel">キャンセル</button>
+        <button id="invite-submit">招待する</button>
+      </div>
+      
+    </div>    
+  </div>
+
 
  <!-- 共通 -->
 <script type="module" src="src/common/firebase-config.js"></script>
@@ -191,6 +205,7 @@
 <script type="module" src="src/rooms/roomSelect.js"></script>
 <script type="module" src="src/rooms/roomAddMember.js"></script>
 <script type="module" src="src/rooms/membersAdd.js"></script>
+<script type="module" src="src/common/inviteModal.js"></script>
 
 <!-- チャンネル関連 -->
 <script type="module" src="src/channels/channelCreate.js"></script>

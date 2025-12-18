@@ -1,73 +1,66 @@
 // 
-console.log("loadRooms.js 読み込み成功");
+console.log("loadRooms.js（subcollection対応）読み込み成功");
 
 // Firebase 共通設定
 import { db, auth } from "../common/firebase-config.js";
+
 // Firestore モジュール
 import {
   collection,
-  query,
-  where,
   getDocs,
-  onSnapshot
+  doc,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
 // ルーム選択
 import { selectRoom } from "./roomSelect.js";
-
 
 // ルーム一覧
 const roomListElement = document.getElementById("room-list");
 
-//ログインしているユーザーが所属するルーム一覧を読み込む処理（非同期）
+// ログインユーザーが所属しているルーム一覧を取得
 export async function loadUserRooms() {
 
-  //現在ログイン中のユーザーを入れる
   const user = auth.currentUser;
 
-  //エラー処理
-  //ログインしていない場合は終了
   if (!user) {
     console.log("未ログインのためルームは取得しません");
     return;
   }
 
   try {
-    // members に自分の UID を含むルームを取得
-    //クエリ q を定義
-    const q = query(
-      //roomsのコレクションを参照（firestore）
-      collection(db, "rooms"),
-      //membersに自分のUIDが含まれているルームを探す
-      where("members", "array-contains", user.uid)
-    );
+    // 一旦一覧をクリア
+    roomListElement.innerHTML = "";
 
-     // onSnapshotでリアルタイム更新
-    onSnapshot(q, (querySnapshot) => {
-      // 古いデータを削除
-      roomListElement.innerHTML = "";
+    // 全ルーム取得
+    const roomsSnapshot = await getDocs(collection(db, "rooms"));
 
-      //ルーム事にループする
-      querySnapshot.forEach((doc) => {
-        //ルームのデータを入れる
-        const room = doc.data();
-        //liを作成
-        const li = document.createElement("li");
-        //room.name を表示
-        li.textContent = room.name;
-        //dataset.roomId にドキュメント ID を保存
-        li.dataset.roomId = doc.id;
-        //css用に"room-item"を付与
-        li.classList.add("room-item");
-        //クリックで selectRoomを呼ぶ
-        li.addEventListener("click", () => {
-          selectRoom(doc.id, room.name);
-        });
-        //liをルーム一覧に追加する
-        roomListElement.appendChild(li);
+    for (const roomDoc of roomsSnapshot.docs) {
+      const roomId = roomDoc.id;
+      const roomData = roomDoc.data();
+
+      // このルームの members/{uid} が存在するか確認
+      const memberRef = doc(db, "rooms", roomId, "members", user.uid);
+      const memberSnap = await getDoc(memberRef);
+
+      // メンバーでなければスキップ
+      if (!memberSnap.exists()) continue;
+
+      // ルーム表示
+      const li = document.createElement("li");
+      li.textContent = roomData.name;
+      li.dataset.roomId = roomId;
+      li.classList.add("room-item");
+
+      li.addEventListener("click", () => {
+        selectRoom(roomId, roomData.name);
       });
 
-      console.log("ルーム一覧更新");
-    });
+      roomListElement.appendChild(li);
+    }
+
+    console.log("ルーム一覧更新（subcollection）");
+
   } catch (error) {
     console.error("ルーム読み込み失敗:", error);
   }
