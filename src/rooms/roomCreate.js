@@ -53,11 +53,13 @@ createRoomBtn.addEventListener("click", async () => {
       createdAt: serverTimestamp(),
     });
 
-    //
+    // subcollection members に追加
     const memberRef = doc(db, "rooms", docRef.id, "members", user.uid);
-    //
+    
     await setDoc(memberRef, {
+      //メンバーの役割を設定
       role: "owner",
+      //参加時刻
       joinedAt: serverTimestamp(),
     });
 

@@ -68,14 +68,17 @@ export async function handleTodoCommand(command, roomId, channelId) {
           updatedAt: serverTimestamp(),
         };
 
+        // 担当者が指定されている場合だけ assignee を追加
         if (command.assignee !== undefined) {
           newTodo.assignee = command.assignee;
         }
 
+        // 期限が指定されている場合だけ dueDate を追加
         if (command.dueDate !== undefined) {
           newTodo.dueDate = command.dueDate;
         }
 
+        //Firestore に保存
         await addDoc(todosCol, newTodo);
 
         //メッセージを返却

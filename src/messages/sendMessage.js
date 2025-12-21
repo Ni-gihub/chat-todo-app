@@ -13,9 +13,9 @@ import {
 import { getCurrentRoomId } from "../rooms/roomSelect.js";
 // 選択しているチャンネルを取得
 import { getCurrentChannelId } from "../channels/channelSelect.js";
-// 
+// コマンドの解析
 import { parseTodoCommand } from "../todo/commandParser.js";
-// 
+// コマンドのチェック
 import { handleTodoCommand } from "../todo/todoService.js";
 
 
