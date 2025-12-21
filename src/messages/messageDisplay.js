@@ -93,8 +93,8 @@ export function startMessageListener() {
       if (data.createdAt?.toDate) {
         //TimestampをJavaScript の Date に変換
         const dateObj = data.createdAt.toDate();
-        //時間をHH:MMに形式変更
-        time = dateObj.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        //時間をMM/DD HH:MMに形式変更
+        time = dateObj.toLocaleString([], {month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
       }
 
 
@@ -141,7 +141,7 @@ export function startMessageListener() {
         //CSS用のmessage-infoを付与する
         infoDiv.classList.add("message-info");
         //ユーザー名と時間を文字列としてそのまま表示
-        infoDiv.textContent = `${userName}・${time}`;
+        infoDiv.textContent = `${time}・${userName}`;
         // liの中に投稿者情報を追加。
         li.appendChild(infoDiv);
       }

@@ -40,9 +40,9 @@ export function parseTodoCommand(text) {
       // ([^\s@\/]+) の部分が入る（必須）
       taskName: addMatch[1].trim(),
       //１つ目の (\S+) の部分が入る（任意）
-      assignee: addMatch[2] ? addMatch[2].trim() : null,
+      assignee: addMatch[2] ? addMatch[2].trim() : undefined,
       //２つ目の (\S+) の部分が入る（任意）
-      dueDate: addMatch[3] ? addMatch[3].trim() : null,
+      dueDate: addMatch[3] ? addMatch[3].trim() : undefined,
     };
   }
 

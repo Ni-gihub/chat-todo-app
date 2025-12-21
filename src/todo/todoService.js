@@ -61,20 +61,23 @@ export async function handleTodoCommand(command, roomId, channelId) {
       //タスクが存在しない場合
       if (querySnapshot.empty) {
         // 指定したコレクションに新しいドキュメントを追加する
-        await addDoc(todosCol, {
-          //タスク名（必須）
+        const newTodo = {
           taskName: command.taskName,
-          //担当者（任意）
-          assignee: command.assignee || null,
-          //期限日（任意）
-          dueDate: command.dueDate || null,
-          //初期は未完了
           completed: false,
-          //作成日時
           createdAt: serverTimestamp(),
-          //更新日時
           updatedAt: serverTimestamp(),
-        });
+        };
+
+        if (command.assignee !== undefined) {
+          newTodo.assignee = command.assignee;
+        }
+
+        if (command.dueDate !== undefined) {
+          newTodo.dueDate = command.dueDate;
+        }
+
+        await addDoc(todosCol, newTodo);
+
         //メッセージを返却
         return `タスク「${command.taskName}」を追加しました。`;
 
