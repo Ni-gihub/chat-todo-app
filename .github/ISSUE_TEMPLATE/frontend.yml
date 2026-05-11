@@ -4,8 +4,8 @@ title: "[FRONTEND] "
 labels: []
 
 body:
+## やること
 - type: textarea
   id: task
   attributes:
-    label: やること
     placeholder: ここに入力
