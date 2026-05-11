@@ -15,6 +15,7 @@ body:
     id: detail
     attributes:
       label: "概要"
+      value: "- "
 
   - type: dropdown
     attributes:
