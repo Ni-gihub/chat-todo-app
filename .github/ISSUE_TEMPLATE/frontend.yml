@@ -1,14 +1,18 @@
-name: Frontend
-description: UI・UX・画面まわりの機能追加・修正
-title: "[FRONTEND] "
+name: "フロントエンド"
+description: "UI・UX・画面まわりの機能追加・修正"
+title: ""
+
 labels: []
 
 body:
-    ## 注意
-  これはフロントエンドIssueです
+  - type: textarea
+    id: task
+    attributes:
+      label: "やる事"
+    validations:
+      required: true
 
-- type: textarea
-  id: task
-  attributes:
-  　label: やること
-    placeholder: ここに入力
+  - type: textarea
+    id: detail
+    attributes:
+      label: "概要"
