@@ -1,15 +1,9 @@
-name: フロントエンド
-description: UI・UX・画面まわりの機能追加・修正
+name: "バックエンド"
+description: "API・DB・認証などサーバー側の変更"
 
 labels: []
 
 body:
-
-  - type: markdown
-    attributes:
-      value: |
-        - Figma: https://www.figma.com/design/EHYD8Od7MLHxd5ibSEv1j2/%E3%83%A2%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97?node-id=0-1&p=f&t=vGccT9OfNCUHaWI0-0
-        
   - type: textarea
     id: task
     attributes:
