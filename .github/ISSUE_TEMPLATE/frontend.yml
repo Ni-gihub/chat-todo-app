@@ -1,79 +1,20 @@
-name: Bug Report
-description: File a bug report.
-title: "[Bug]: "
-labels: ["bug", "triage"]
-assignees:
-  - octocat
+name: "Frontend"
+description: "UI・UX・画面まわりの機能追加・修正"
+title: "[FRONTEND] "
+
+labels: []
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
-
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
-
   - type: textarea
-    id: what-happened
+    id: task
     attributes:
-      label: What happened?
-      description: Also tell us what you expected to happen.
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      label: "やること"
+      placeholder: "例：チャット画面の送信ボタンUIを修正する"
     validations:
       required: true
 
-  - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
-      default: 0
-    validations:
-      required: true
-
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-
   - type: textarea
-    id: logs
+    id: detail
     attributes:
-      label: Relevant log output
-      description: Paste logs here. They will be formatted automatically.
-      render: shell
-
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Code of Conduct
-      description: By submitting, you agree to follow our Code of Conduct.
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
-
-  - type: textarea
-    id: screenshots
-    attributes:
-      label: Screenshots
-      description: Paste images or drag & drop files here.
-    validations:
-      required: false
-
+      label: "詳細"
+      placeholder: "背景・仕様など"
