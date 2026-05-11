@@ -1,32 +1,28 @@
 name: フロントエンド
 description: UI・UX・画面まわりの機能追加・修正
 
-labels: []
+labels:
+  - frontend
 
 body:
-
   - type: markdown
     attributes:
-    value: |
-      ## 🎨 デザイン
-      📎 [Figmaを開く](https://www.figma.com/design/EHYD8Od7MLHxd5ibSEv1j2/xxxxx)
-        
+      value: |
+        ## 🎨 デザイン
+        [Figmaを開く](https://www.figma.com/design/EHYD8Od7MLHxd5ibSEv1j2/xxxxx)
+
   - type: textarea
     id: task
     attributes:
       label: やる事
-      placeholder: "例：ボタンのUI作成、レスポンシブ対応など"
-    validations:
-      required: true
+      placeholder: "例：ボタンUI作成"
 
   - type: textarea
     id: detail
     attributes:
       label: 概要
-      placeholder: "背景・目的・補足など"
 
   - type: input
     id: docs
     attributes:
-      label: 参考ドキュメントURL
-      placeholder: "例：https://www.figma.com/file/xxxxxx/xxxxxx"
+      label: 参考URL
