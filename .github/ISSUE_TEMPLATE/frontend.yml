@@ -15,3 +15,16 @@ body:
     id: detail
     attributes:
       label: "概要"
+
+  - type: dropdown
+    attributes:
+      label: 優先度
+      options:
+        - 優先度高い
+        - 優先度普通
+        - 優先度低い
+
+  - type: input
+    attributes:
+      label: 参考ドキュメントURL
+      placeholder: "例：https://www.figma.com/file/xxxxxx/xxxxxx?"
