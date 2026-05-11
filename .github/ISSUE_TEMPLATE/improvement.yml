@@ -1,0 +1,19 @@
+name: "開発経験の向上"
+description: "開発体験・リファクタ・Swagger改善など"
+title: "【開発経験の向上】"
+
+labels: []
+
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: "課題"
+      placeholder: "例：API仕様が分かりにくい"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "改善案"
