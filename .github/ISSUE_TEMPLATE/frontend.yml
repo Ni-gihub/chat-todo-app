@@ -13,11 +13,15 @@ body:
     validations:
       required: true
 
+
+
   - type: textarea
     id: detail
     attributes:
       label: 概要
       placeholder: "背景・目的・補足など"
+
+
 
   - type: textarea
     id: done
@@ -27,6 +31,8 @@ body:
         - ボタンがクリックできる
         - エラー時にメッセージ表示される
         - PC/SPで崩れない
+
+
 
   - type: textarea
     id: test
@@ -38,11 +44,15 @@ body:
         3. ボタンを押す
         4. 正常に動作することを確認
 
+
+
   - type: input
     id: docs
     attributes:
       label: 参考ドキュメントURL
       placeholder: "例：https://www.figma.com/file/xxxxxx/xxxxxx"
+
+
 
   - type: textarea
     id: memo
