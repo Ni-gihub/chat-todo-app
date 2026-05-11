@@ -4,7 +4,9 @@ title: "[FRONTEND] "
 labels: []
 
 body:
-  ## やること
+    ## 注意
+  これはフロントエンドIssueです
+
 - type: textarea
   id: task
   attributes:
