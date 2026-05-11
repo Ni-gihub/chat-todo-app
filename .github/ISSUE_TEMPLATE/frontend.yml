@@ -5,16 +5,37 @@ title: "[FRONTEND] "
 labels: []
 
 body:
-  - type: textarea
-    id: task
+  - type: markdown
     attributes:
-      label: "やること"
-      placeholder: "例：チャット画面の送信ボタンUIを修正する"
+      value: |
+        バグ報告ありがとうございます。以下の情報を記入してください。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: バグの説明
+      description: バグの内容を詳しく説明してください
+      placeholder: できるだけ具体的に記述してください
     validations:
       required: true
 
   - type: textarea
-    id: detail
+    id: reproduction
     attributes:
-      label: "詳細"
-      placeholder: "背景・仕様など"
+      label: 再現手順
+      description: バグを再現するための手順を記述してください
+      placeholder: |
+        1. '...' に移動
+        2. '....' をクリック
+        3. '....' までスクロール
+        4. エラーが発生
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する動作
+      description: 本来期待される動作を記述してください
+    validations:
+      required: true
