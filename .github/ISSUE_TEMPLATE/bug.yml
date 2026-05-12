@@ -2,7 +2,7 @@ name: "バグ修正"
 description: "不具合・エラー・想定外の動作の報告"
 title: "【バグ修正】"
 
-labels: []
+labels: [bug]
 
 body:
   - type: textarea
