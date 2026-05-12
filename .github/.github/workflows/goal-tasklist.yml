@@ -1,0 +1,68 @@
+name: Convert Goal To TaskList
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Convert Goal section
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+
+            let body = issue.body;
+
+            // Goal セクション取得
+            const regex =
+              /### 完了条件（Goal）([\s\S]*?)(\n### |$)/;
+
+            const match = body.match(regex);
+
+            if (!match) {
+              core.info("Goal section not found");
+              return;
+            }
+
+            const goalText = match[1].trim();
+
+            // 行ごとに変換
+            const converted = goalText
+              .split("\n")
+              .map(line => line.trim())
+              .filter(line => line !== "")
+              .map(line => {
+                // すでに task list
+                if (line.startsWith("- [ ]")) {
+                  return line;
+                }
+
+                // "- " を除去
+                line = line.replace(/^- /, "");
+
+                return `- [ ] ${line}`;
+              })
+              .join("\n");
+
+            // 本文置換
+            const newBody = body.replace(
+              regex,
+              `### 完了条件（Goal）\n${converted}\n$2`
+            );
+
+            // Issue更新
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: newBody
+            });
+
+            core.info("Goal converted to task list");
